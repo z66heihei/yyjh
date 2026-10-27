@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>景源易货商城下载</title>
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <style>
+    :root {
+      --bg-top: #fff5ef;
+      --bg-mid: #fff9f2;
+      --bg-bottom: #d62c27;
+      --panel: rgba(255, 255, 255, 0.96);
+      --text: #15120d;
+      --muted: #6d6251;
+      --red: #ef4038;
+      --red-deep: #bf241f;
+      --gold: #d8a743;
+      --gold-soft: #fff1c7;
+      --ink: #17140f;
+      --shadow: 0 26px 60px rgba(150, 32, 27, 0.22);
+      --radius: 30px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 52% 6%, rgba(255, 247, 226, 0.98), transparent 30%),
+        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 48%, #ffddd0 72%, var(--bg-bottom) 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(12px);
+    }
+
+    body::before {
+      width: 240px;
+      height: 240px;
+      top: -80px;
+      left: -60px;
+      background: rgba(255, 207, 101, 0.32);
+    }
+
+    body::after {
+      width: 280px;
+      height: 280px;
+      right: -120px;
+      bottom: 80px;
+      background: rgba(239, 64, 56, 0.28);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding:
+        calc(env(safe-area-inset-top) + 42px)
+        22px
+        calc(env(safe-area-inset-bottom) + 44px);
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand-mark {
+      width: clamp(118px, 30vw, 164px);
+      height: auto;
+      display: block;
+      margin: 0 auto 18px;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 26px;
+      box-shadow: 0 16px 32px rgba(120, 73, 16, 0.14);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(36px, 8vw, 72px);
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      font-size: clamp(18px, 4.2vw, 30px);
+      line-height: 1.3;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .panel {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 30px 22px 30px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 239, 0.96)),
+        var(--panel);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(216, 167, 67, 0.26);
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      top: 54px;
+      width: 78%;
+      height: 280px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(255, 226, 142, 0.42) 0%, rgba(255, 245, 219, 0.58) 58%, rgba(255, 255, 255, 0) 78%);
+      border: 1px solid rgba(216, 167, 67, 0.22);
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      bottom: -155px;
+      width: 150%;
+      height: 330px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(239, 64, 56, 0.18), rgba(216, 167, 67, 0.04) 60%, rgba(239, 64, 56, 0) 72%);
+    }
+
+    .stage {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(12px, 3vw, 22px);
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 620px);
+      margin: 28px auto -8px;
+    }
+
+    .phone-preview {
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      aspect-ratio: 1276 / 2300;
+      margin: 0;
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 22px 34px rgba(91, 29, 24, 0.18);
+    }
+
+    .app-preview {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .gold-chip {
+      position: absolute;
+      z-index: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffe29a, var(--gold) 72%);
+      box-shadow: 0 10px 18px rgba(180, 124, 29, 0.22);
+    }
+
+    .gold-chip.chip-a {
+      width: 18px;
+      height: 18px;
+      top: 84px;
+      left: 22%;
+      opacity: 0.72;
+    }
+
+    .gold-chip.chip-b {
+      width: 16px;
+      height: 16px;
+      top: 206px;
+      right: 22%;
+    }
+
+    .gold-chip.chip-c {
+      width: 40px;
+      height: 40px;
+      right: 28%;
+      bottom: 48px;
+    }
+
+    .gold-chip.chip-d {
+      width: 18px;
+      height: 18px;
+      left: 14%;
+      bottom: 20px;
+      opacity: 0.55;
+    }
+
+    .feature {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 auto 22px;
+      color: var(--red-deep);
+      font-size: clamp(18px, 3.7vw, 26px);
+      font-weight: 600;
+    }
+
+    .feature::before,
+    .feature::after {
+      content: "";
+      width: 96px;
+      height: 2px;
+      border-radius: 999px;
+    }
+
+    .feature::before {
+      background: linear-gradient(90deg, rgba(216, 167, 67, 0), rgba(216, 167, 67, 0.95));
+    }
+
+    .feature::after {
+      background: linear-gradient(90deg, rgba(216, 167, 67, 0.95), rgba(216, 167, 67, 0));
+    }
+
+    .actions {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 74px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ff5d54 0%, var(--red) 52%, var(--red-deep) 100%);
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(17px, 3.4vw, 24px);
+      font-weight: 600;
+      letter-spacing: 0;
+      box-shadow: 0 18px 30px rgba(191, 36, 31, 0.26);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .button:nth-child(2) {
+      background: linear-gradient(180deg, #2b2720 0%, var(--ink) 58%, #050403 100%);
+      box-shadow: 0 18px 30px rgba(15, 13, 10, 0.22);
+    }
+
+    .button:active {
+      transform: scale(0.98);
+      box-shadow: 0 12px 20px rgba(191, 36, 31, 0.22);
+      opacity: 0.96;
+    }
+
+    .button-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      font-size: 28px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .version {
+      position: relative;
+      z-index: 3;
+      margin-top: 26px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      color: var(--ink);
+      font-size: clamp(13px, 3vw, 18px);
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    .tips {
+      position: relative;
+      z-index: 3;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      text-align: center;
+      color: rgba(21, 18, 13, 0.62);
+      font-size: 14px;
+    }
+
+    .wechat-mask {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: none;
+      padding: 22px;
+      background: rgba(7, 16, 34, 0.74);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wechat-mask.show {
+      display: flex;
+    }
+
+    .wechat-panel {
+      width: min(100%, 420px);
+      padding: 24px 22px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+    }
+
+    .wechat-panel h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .wechat-panel p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #475569;
+    }
+
+    .wechat-note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff2d4;
+      color: #7c4d06;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .wechat-close {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ff5d54, #c72722);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding-top: calc(env(safe-area-inset-top) + 42px);
+      }
+
+      .panel {
+        padding: 28px 18px 28px;
+      }
+
+      .feature {
+        margin-bottom: 20px;
+      }
+
+      .feature::before,
+      .feature::after {
+        width: 76px;
+      }
+
+      .actions {
+        gap: 14px;
+      }
+
+      .button {
+        min-height: 64px;
+        padding: 0 12px;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .button {
+        min-height: 58px;
+        font-size: 14px;
+        gap: 8px;
+      }
+
+      .button-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 22px;
+      }
+
+      .version {
+        margin-top: 28px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .brand-mark {
+        width: 132px;
+        margin-bottom: 12px;
+      }
+
+      .stage {
+        gap: 10px;
+      }
+
+      .phone-preview {
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <img class="brand-mark" src="icon.png" alt="景源易货商城">
+      <h1>景源易货商城</h1>
+      <p>景源易货商城万亿市场 让 景源易货红酒更好卖</p>
+    </header>
+
+    <section class="panel">
+      <div class="feature">不支持鸿蒙系统下载</div>
+
+      <div class="actions">
+        <a class="button" href="景源易货商城.apk">
+          <span class="button-icon">🤖</span>
+          <span>安卓下载</span>
+        </a>
+        <a class="button" href="景源易货商城.mobileconfig">
+          <span class="button-icon"></span>
+          <span>苹果下载</span>
+        </a>
+      </div>
+
+      <div class="version">苹果下载后，第二步安装描述文件，设置内点击信任证书</div>
+      <div class="tips">如果下载不了，请使用系统浏览器打开本页面</div>
+
+      <div class="stage">
+        <span class="gold-chip chip-a" aria-hidden="true"></span>
+        <span class="gold-chip chip-b" aria-hidden="true"></span>
+        <span class="gold-chip chip-c" aria-hidden="true"></span>
+        <span class="gold-chip chip-d" aria-hidden="true"></span>
+        <figure class="phone-preview">
+          <img class="app-preview" src="bg1.jpg" alt="酒类商品展示预览">
+        </figure>
+        <figure class="phone-preview">
+          <img class="app-preview" src="bg2.jpg" alt="酒类商品列表预览">
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <div class="wechat-mask" id="wechatMask">
+    <div class="wechat-panel">
+      <h2>请在浏览器中打开</h2>
+      <p>检测到你当前在微信内打开，微信内可能无法正常下载安装包。</p>
+      <div class="wechat-note">
+        点击右上角菜单，然后选择“在浏览器打开”后，再进行下载安装。
+      </div>
+      <button class="wechat-close" type="button" id="wechatClose">我知道了</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ua = window.navigator.userAgent.toLowerCase();
+      var isWeChat = /micromessenger/.test(ua);
+      var mask = document.getElementById("wechatMask");
+      var closeButton = document.getElementById("wechatClose");
+
+      if (isWeChat && mask) {
+        mask.classList.add("show");
+      }
+
+      if (closeButton && mask) {
+        closeButton.addEventListener("click", function () {
+          mask.classList.remove("show");
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
